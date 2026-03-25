@@ -1,0 +1,14 @@
+=== Grafana Loki Monitoring Setup ===
+
+1. How I started Loki (using Docker):
+I ran the official Grafana Loki container locally on port 3100:
+docker run -d --name loki -p 3100:3100 grafana/loki:3.0.0
+
+2. How to view logs:
+To check if Loki is receiving logs or running properly, I can visit the ready endpoint:
+http://localhost:3100/ready
+
+To forward Docker container logs to Loki, I would install the Loki Docker Driver and run my container with:
+docker run --log-driver=loki --log-opt loki-url="http://localhost:3100/loki/api/v1/push" devops-hello
+
+(In a production environment, Grafana Alloy would be used to scrape /var/log or Docker logs and forward them to Loki).
